@@ -7,11 +7,38 @@ const App = () => {
 
   const vote = (id) => {
     console.log('vote', id)
+    dispatch({
+      type: 'VOTE',
+      id: id
+    })
+  }
+
+  const id = () => (100000 * Math.random()).toFixed(0)
+
+  const addAnecdote = (event) => {
+    event.preventDefault()
+    const content = event.target.anecdote.value
+    event.target.anecdote.value = ''
+    dispatch({
+      type: 'NEW_ANECDOTE',
+      data: {
+        content,
+        id: id(),
+        votes: 0
+      }
+    })
+  }
+
+  const sort = (anecdotes) => {
+    anecdotes.sort(function (a, b) {
+      return b.votes - a.votes
+    })
   }
 
   return (
     <div>
       <h2>Anecdotes</h2>
+      {sort(anecdotes)}
       {anecdotes.map(anecdote =>
         <div key={anecdote.id}>
           <div>
@@ -24,9 +51,9 @@ const App = () => {
         </div>
       )}
       <h2>create new</h2>
-      <form>
-        <div><input /></div>
-        <button>create</button>
+      <form onSubmit={addAnecdote}>
+        <div><input name='anecdote'/></div>
+        <button type='submit'>create</button>
       </form>
     </div>
   )
