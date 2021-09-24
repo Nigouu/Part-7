@@ -1,4 +1,5 @@
 import { useDispatch } from 'react-redux'
+// import store from '../store'
 
 const AnecdoteForm = () => {
 
@@ -18,12 +19,19 @@ const AnecdoteForm = () => {
         votes: 0
       }
     })
+    dispatch({
+      type: 'NOTIFICATION',
+      content
+    })
+    setTimeout(() => {
+      dispatch({type: 'HIDE_NOTIFICATION'})
+    }, 2000)
   }
 
   return (
     <div>
         <h2>create new</h2>
-        <form onSubmit={addAnecdote}>
+        <form onSubmit={addAnecdote} >
             <div><input name='anecdote'/></div>
             <button type='submit'>create</button>
         </form>
