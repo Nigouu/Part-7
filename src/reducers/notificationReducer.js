@@ -5,7 +5,7 @@ const notification = [
   const notificationReducer = (state = notification, action) => {
     switch (action.type) {
       case 'NOTIFICATION':
-        const updatedNotification = ''.concat(action.content, ' has been added')
+        const updatedNotification = (action.text)
         return updatedNotification
       case 'HIDE_NOTIFICATION':
         const hideNotification = ''
@@ -13,7 +13,27 @@ const notification = [
       default:
         return state
     }
-    
   }
+
+  export const setNotification = (textEntered, timeDisplayed) => {
+
+    const time = timeDisplayed * 100
+
+    return async dispatch => {
+      dispatch({
+        type: 'NOTIFICATION',
+        text: textEntered
+      })
+      setTimeout(() => {
+        dispatch({type: 'HIDE_NOTIFICATION'})
+      }, time)
+    }
+  // return (
+  // {
+  //   type: 'NOTIFICATION',
+  //   text: textEntered
+  // }
+  // )
+}
   
   export default notificationReducer
