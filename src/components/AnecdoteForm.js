@@ -1,24 +1,19 @@
 import { useDispatch } from 'react-redux'
-// import store from '../store'
+import { createAnecdote } from '../reducers/anecdoteReducer'
+import anecdoteService from '../services/anecdotes'
 
 const AnecdoteForm = () => {
 
   const dispatch = useDispatch()
-
   const id = () => (100000 * Math.random()).toFixed(0)
 
-  const addAnecdote = (event) => {
+  const addAnecdote = async (event) => {
     event.preventDefault()
     const content = event.target.anecdote.value
+    const newId = id()
     event.target.anecdote.value = ''
-    dispatch({
-      type: 'NEW_ANECDOTE',
-      data: {
-        content,
-        id: id(),
-        votes: 0
-      }
-    })
+    const newAnecdote = await anecdoteService.createNew(content, newId)
+    dispatch(createAnecdote(newAnecdote))
     dispatch({
       type: 'NOTIFICATION',
       content
@@ -42,3 +37,22 @@ const AnecdoteForm = () => {
 
 export default AnecdoteForm
 
+
+
+
+
+
+
+
+
+
+
+
+    // dispatch({
+    //   type: 'NEW_ANECDOTE',
+    //   data: {
+    //     content,
+    //     id: id(),
+    //     votes: 0
+    //   }
+    // })
