@@ -1,6 +1,4 @@
-const notification = [
-    ''
-  ]
+const notification = ['']
   
   const notificationReducer = (state = notification, action) => {
     switch (action.type) {
@@ -16,7 +14,6 @@ const notification = [
   }
 
   export const setNotification = (textEntered, timeDisplayed) => {
-
     const time = timeDisplayed * 100
 
     return async dispatch => {
@@ -28,12 +25,6 @@ const notification = [
         dispatch({type: 'HIDE_NOTIFICATION'})
       }, time)
     }
-  // return (
-  // {
-  //   type: 'NOTIFICATION',
-  //   text: textEntered
-  // }
-  // )
 }
   
   export default notificationReducer

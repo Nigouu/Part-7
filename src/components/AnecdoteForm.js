@@ -1,12 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { createAnecdote } from '../reducers/anecdoteReducer'
-// import { setNotification } from '../reducers/notificationReducer'
+import { setNotification } from '../reducers/notificationReducer'
 
 const AnecdoteForm = (props) => {
 
-  // console.log(createAnecdote)
-  // console.log(props.createAnecdote)
+  // console.log(setNotification)
+  // console.log(props.setNotification)
 
   const id = () => (100000 * Math.random()).toFixed(0)
 
@@ -16,7 +16,7 @@ const AnecdoteForm = (props) => {
     const newId = id()
     event.target.anecdote.value = ''
     props.createAnecdote(content, newId)
-    // props.setNotification(`'${content}' has been added`, 50)
+    props.setNotification(`you added '${content}'`)
   }
 
   return (
@@ -34,6 +34,9 @@ const mapDispatchToProps = dispatch => {
   return {
     createAnecdote: value => {
       dispatch(createAnecdote(value))
+    },
+    setNotification: value => {
+      dispatch(setNotification(value, 10))
     }
   }
 }

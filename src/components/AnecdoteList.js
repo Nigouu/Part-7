@@ -12,15 +12,15 @@ const AnecdoteList = (props) => {
         props.setNotification(`you voted '${anecdote.content}'`, 10)
       }
 
-    // const sort = () => {
-    //     props.anecdotes.sort(function (a, b) {
-    //     return b.votes - a.votes
-    //     })
-    // }
+    const sort = () => {
+        props.anecdotes.sort(function (a, b) {
+        return b.votes - a.votes
+        })
+    }
 
     return(
         <div>
-            {/* {sort(props.anecdotes)} */}
+            {sort(props.anecdotes)}
             {props.anecdotes.map(anecdote =>
                 <div key={anecdote.id}>
                     <div>
