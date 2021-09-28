@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { createAnecdote } from '../reducers/anecdoteReducer'
-import { setNotification } from '../reducers/notificationReducer'
+// import { setNotification } from '../reducers/notificationReducer'
 
 const AnecdoteForm = (props) => {
 
@@ -16,16 +16,7 @@ const AnecdoteForm = (props) => {
     const newId = id()
     event.target.anecdote.value = ''
     props.createAnecdote(content, newId)
-    props.setNotification(`${content} has been added'`, 10)
-    // const newAnecdote = await anecdoteService.createNew(content, newId)
-    // dispatch(createAnecdote(newAnecdote))
-    // dispatch({
-    //   type: 'NOTIFICATION',
-    //   content
-    // })
-    // setTimeout(() => {
-    //   dispatch({type: 'HIDE_NOTIFICATION'})
-    // }, 2000)
+    // props.setNotification(`'${content}' has been added`, 50)
   }
 
   return (
@@ -37,10 +28,17 @@ const AnecdoteForm = (props) => {
         </form>
     </div>
   )
+}
 
+const mapDispatchToProps = dispatch => {
+  return {
+    createAnecdote: value => {
+      dispatch(createAnecdote(value))
+    }
+  }
 }
 
 export default connect(
-  null, 
-  { createAnecdote, setNotification }
+  null,
+  mapDispatchToProps
 )(AnecdoteForm)
