@@ -23,15 +23,15 @@ const AnecdoteList = (props) => {
     //         : anecdotes
     // })
 
-    const anecdotes = () => {
-        if ( props.filter === '' ) {
-            return props.anecdotes
-          }
+    // const anecdotes = () => {
+    //     if ( props.filter === '' ) {
+    //         return props.anecdotes
+    //     }
 
-        return props.filter  !== '' 
-            ? props.anecdotes.filter(anecdote => anecdote.content.toLowerCase().indexOf(props.filter.toLowerCase()) !== -1)
-            : props.anecdotes
-    }
+    //     return props.filter  !== '' 
+    //         ? props.anecdotes.filter(anecdote => anecdote.content.toLowerCase().indexOf(props.filter.toLowerCase()) !== -1)
+    //         : props.anecdotes
+    // }
 
     // const sort = () => {
     //     props.anecdotes.sort(function (a, b) {
@@ -42,7 +42,7 @@ const AnecdoteList = (props) => {
     return(
         <div>
             {/* {sort(props.anecdotes)} */}
-            {anecdotes().map(anecdote =>
+            {props.anecdotes.map(anecdote =>
                 <div key={anecdote.id}>
                     <div>
                         {anecdote.content}
@@ -77,9 +77,13 @@ const AnecdoteList = (props) => {
 //   )(AnecdoteList)
 
 const mapStateToProps = (state) => {
+    if ( state.filter === '' ) {
+        return {anecdotes: state.anecdotes}
+    }
     return {
-      anecdotes: state.anecdotes,
-      filter: state.filter,
+        anecdotes: state.filter  !== '' 
+            ? state.anecdotes.filter(anecdote => anecdote.content.toLowerCase().indexOf(state.filter.toLowerCase()) !== -1)
+            : state.anecdotes
     }
   }
 
