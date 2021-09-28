@@ -5,8 +5,8 @@ import { createAnecdote } from '../reducers/anecdoteReducer'
 
 const AnecdoteForm = (props) => {
 
-  console.log(createAnecdote)
-  console.log(props.createAnecdote)
+  // console.log(createAnecdote)
+  // console.log(props.createAnecdote)
 
   const id = () => (100000 * Math.random()).toFixed(0)
 
