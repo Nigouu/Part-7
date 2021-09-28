@@ -5,6 +5,9 @@ import { setNotification } from '../reducers/notificationReducer'
 
 const AnecdoteForm = (props) => {
 
+  console.log(createAnecdote)
+  console.log(props.createAnecdote)
+
   const id = () => (100000 * Math.random()).toFixed(0)
 
   const addAnecdote = async (event) => {
