@@ -1,8 +1,9 @@
-import { useSelector, useDispatch } from 'react-redux'
+import React from 'react'
+import { useDispatch, connect } from 'react-redux'
 import { voteAnecdote } from '../reducers/anecdoteReducer'
 import { setNotification } from '../reducers/notificationReducer'
 
-const AnecdoteList = () => {
+const AnecdoteList = (props) => {
 
     const dispatch = useDispatch()
 
@@ -13,25 +14,35 @@ const AnecdoteList = () => {
         dispatch(setNotification(`you voted '${anecdote.content}'`, 10))
       }
 
-    const anecdotes = useSelector(({filter, anecdotes}) => {
-        if ( filter === '' ) {
-            return anecdotes
-          }
-        return filter  !== '' 
-            ? anecdotes.filter(anecdote => anecdote.content.toLowerCase().indexOf(filter.toLowerCase()) !== -1)
-            : anecdotes
-    })
+    // const anecdotes = useSelector(({filter, anecdotes}) => {
+    //     if ( filter === '' ) {
+    //         return anecdotes
+    //       }
+    //     return filter  !== '' 
+    //         ? anecdotes.filter(anecdote => anecdote.content.toLowerCase().indexOf(filter.toLowerCase()) !== -1)
+    //         : anecdotes
+    // })
 
-    const sort = (anecdotes) => {
-        anecdotes.sort(function (a, b) {
-        return b.votes - a.votes
-        })
+    const anecdotes = () => {
+        if ( props.filter === '' ) {
+            return props.anecdotes
+          }
+
+        return props.filter  !== '' 
+            ? props.anecdotes.filter(anecdote => anecdote.content.toLowerCase().indexOf(props.filter.toLowerCase()) !== -1)
+            : props.anecdotes
     }
+
+    // const sort = () => {
+    //     props.anecdotes.sort(function (a, b) {
+    //     return b.votes - a.votes
+    //     })
+    // }
 
     return(
         <div>
-            {sort(anecdotes)}
-            {anecdotes.map(anecdote =>
+            {/* {sort(props.anecdotes)} */}
+            {anecdotes().map(anecdote =>
                 <div key={anecdote.id}>
                     <div>
                         {anecdote.content}
@@ -46,6 +57,33 @@ const AnecdoteList = () => {
     )
 }
 
-export default AnecdoteList
+// const mapStateToProps = (state) => {
+//     if ( state.filter === '' ) {
+//         return state.anecdotes
+//     }
+//     return  state.filter  !== '' 
+//         ? state.anecdotes.filter(anecdote => anecdote.content.toLowerCase().indexOf(state.filter.toLowerCase()) !== -1)
+//         : state.anecdotes
+// }
 
-// const anecdotes = useSelector(state => state.anecdotes)
+// const mapDispatchToProps = {
+//     voteAnecdote,
+//     setNotification
+//   }
+  
+// const ConnectedAnecdotes = connect(
+//     mapStateToProps,
+//     mapDispatchToProps
+//   )(AnecdoteList)
+
+const mapStateToProps = (state) => {
+    return {
+      anecdotes: state.anecdotes,
+      filter: state.filter,
+    }
+  }
+
+const ConnectedAnecdotes = connect(mapStateToProps)(AnecdoteList)
+export default ConnectedAnecdotes
+
+// export default AnecdoteList
