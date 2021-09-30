@@ -1,15 +1,32 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { connect } from 'react-redux'
 import { voteAnecdote } from '../reducers/anecdoteReducer'
 import { setNotification } from '../reducers/notificationReducer'
 
+var timeoutID
 const AnecdoteList = (props) => {
+
+    const [count, setCount] = useState(0)
 
     const vote = (id, anecdote) => {
         console.log('vote', id)
         const newObject = anecdote
         props.voteAnecdote(id, newObject)
-        props.setNotification(`you voted '${anecdote.content}'`, 10)
+        if (count === 0) {
+            clearTimeout(timeoutID)
+            props.setNotification(`you voted '${anecdote.content}'`, 5, count)
+            setCount(1)
+            timeoutID = setTimeout(() => {
+                setCount(0)
+              }, 5000)
+          } else {
+            clearTimeout(timeoutID)
+            props.setNotification(`you voted '${anecdote.content}'`, 5, count)
+            setCount(1)
+            timeoutID = setTimeout(() => {
+                setCount(0)
+              }, 5000)
+          }
       }
 
     const sort = () => {
