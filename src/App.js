@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import {
   BrowserRouter as Router,
-  Switch, Route, Link, useParams
+  Switch, Route, Link, useParams, useHistory
 } from "react-router-dom"
 
 
@@ -69,13 +69,13 @@ const Footer = () => (
 )
 
 const CreateNew = (props) => {
+  const history = useHistory()
   const [content, setContent] = useState('')
   const [author, setAuthor] = useState('')
   const [info, setInfo] = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log({props}, 'före add new')
     props.addNew({
       content,
       author,
@@ -86,6 +86,7 @@ const CreateNew = (props) => {
     setAuthor('')
     setInfo('')
     console.log('add new done')
+    history.push('/')
   }
 
   return (
@@ -129,13 +130,12 @@ const App = () => {
     }
   ])
 
-  const [notification, setNotification] = useState('')
+  // const [notification, setNotification] = useState('')
 
   const addNew = (anecdote) => {
-    console.log('add new happening')
     anecdote.id = (Math.random() * 10000).toFixed(0)
     setAnecdotes(anecdotes.concat(anecdote))
-    console.log('notes concatted')
+    // setNotification(anecdote)
   }
 
   // const anecdoteById = (id) =>
@@ -157,6 +157,7 @@ const App = () => {
       <h1>Software anecdotes</h1>
       <Router>
         <Menu />
+        {/* <p> {notification} </p> */}
         <Switch>
           <Route path="/anecdote/:id">
             <Anecdote anecdotes={anecdotes} />
