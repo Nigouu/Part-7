@@ -73,15 +73,19 @@ const CreateNew = (props) => {
   const [author, setAuthor] = useState('')
   const [info, setInfo] = useState('')
 
-
   const handleSubmit = (e) => {
     e.preventDefault()
+    console.log({props}, 'före add new')
     props.addNew({
       content,
       author,
       info,
       votes: 0
-    })
+    }) 
+    setContent('')
+    setAuthor('')
+    setInfo('')
+    console.log('add new done')
   }
 
   return (
@@ -125,11 +129,13 @@ const App = () => {
     }
   ])
 
-  // const [notification, setNotification] = useState('')
+  const [notification, setNotification] = useState('')
 
   const addNew = (anecdote) => {
+    console.log('add new happening')
     anecdote.id = (Math.random() * 10000).toFixed(0)
     setAnecdotes(anecdotes.concat(anecdote))
+    console.log('notes concatted')
   }
 
   // const anecdoteById = (id) =>
