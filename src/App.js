@@ -3,6 +3,7 @@ import {
   BrowserRouter as Router,
   Switch, Route, Link, useParams, useHistory
 } from "react-router-dom"
+import  { useField } from './hooks'
 
 
 const Menu = () => {
@@ -24,7 +25,7 @@ const AnecdoteList = ({ anecdotes }) => (
     <ul>
       {anecdotes.map(anecdote => 
         <li key={anecdote.id} >
-          <Link to={`/anecdote/${anecdote.id}`}>{anecdote.content}</Link>
+          <Link to={`/anecdote/${anecdote.id}`}>{anecdote.content.value}</Link>
         </li>)}
     </ul>
   </div>
@@ -70,9 +71,12 @@ const Footer = () => (
 
 const CreateNew = (props) => {
   const history = useHistory()
-  const [content, setContent] = useState('')
-  const [author, setAuthor] = useState('')
-  const [info, setInfo] = useState('')
+  // const [content, setContent] = useState('')
+  // const [author, setAuthor] = useState('')
+  // const [info, setInfo] = useState('')
+  const content = useField('text')
+  const author = useField('text')
+  const info = useField('text')
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -82,52 +86,74 @@ const CreateNew = (props) => {
       info,
       votes: 0
     }) 
-    setContent('')
-    setAuthor('')
-    setInfo('')
-    console.log('add new done')
+    console.log(content)
     history.push('/')
+  }
+
+  const handleClear = (e) => {
+    e.preventDefault()
+    // content.value = ''
+    // author.value = ''
+    // info.value = ''
+    console.log(content)
   }
 
   return (
     <div>
       <h2>create a new anecdote</h2>
-      <form onSubmit={handleSubmit}>
+      <form >
+      {/* onSubmit={handleSubmit} */}
         <div>
           content
-          <input name='content' value={content} onChange={(e) => setContent(e.target.value)} />
+          <input {...content } />
+          {/* <input name='content' value={content} onChange={(e)=> setContent(e.target.value)} /> */}
+          {/* <input
+            type={content.type}
+            value={content.value}
+            onChange={content.onChange} 
+          />  */}
         </div>
         <div>
           author
-          <input name='author' value={author} onChange={(e) => setAuthor(e.target.value)} />
+          <input {...author } />
+          {/* <input
+            type={author.type}
+            value={author.value}
+            onChange={author.onChange} 
+          />  */}
         </div>
         <div>
           url for more info
-          <input name='info' value={info} onChange={(e)=> setInfo(e.target.value)} />
+          <input {...info } />
+          {/* <input
+            type={info.type}
+            value={info.value}
+            onChange={info.onChange} 
+          />  */}
+          {/* <input name='info' value={info} onChange={(e)=> setInfo(e.target.value)} /> */}
         </div>
-        <button>create</button>
+        <button onClick={handleSubmit}>create</button> <button onClick={handleClear} >clear</button>
       </form>
     </div>
   )
-
 }
 
 const App = () => {
   const [anecdotes, setAnecdotes] = useState([
-    {
-      content: 'If it hurts, do it more often',
-      author: 'Jez Humble',
-      info: 'https://martinfowler.com/bliki/FrequencyReducesDifficulty.html',
-      votes: 0,
-      id: '1'
-    },
-    {
-      content: 'Premature optimization is the root of all evil',
-      author: 'Donald Knuth',
-      info: 'http://wiki.c2.com/?PrematureOptimization',
-      votes: 0,
-      id: '2'
-    }
+    // {
+    //   content: 'If it hurts, do it more often',
+    //   author: 'Jez Humble',
+    //   info: 'https://martinfowler.com/bliki/FrequencyReducesDifficulty.html',
+    //   votes: 0,
+    //   id: '1'
+    // },
+    // {
+    //   content: 'Premature optimization is the root of all evil',
+    //   author: 'Donald Knuth',
+    //   info: 'http://wiki.c2.com/?PrematureOptimization',
+    //   votes: 0,
+    //   id: '2'
+    // }
   ])
 
   const [notification, setNotification] = useState('')
@@ -135,11 +161,10 @@ const App = () => {
   const addNew = (anecdote) => {
     anecdote.id = (Math.random() * 10000).toFixed(0)
     setAnecdotes(anecdotes.concat(anecdote))
-    setNotification(`A new anecdote: '${anecdote.content}' was created`)
+    setNotification(`A new anecdote: '${anecdote.content.value}' was created`)
     setTimeout(() => {
       setNotification('')
     }, 3000)
-    
   }
 
   // const anecdoteById = (id) =>
