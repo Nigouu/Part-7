@@ -92,47 +92,50 @@ const CreateNew = (props) => {
 
   const handleClear = (e) => {
     e.preventDefault()
-    // content.value = ''
-    // author.value = ''
-    // info.value = ''
+    // content.onClear()
+    // value={info.value}
+    // onChange={info.onChange} 
+    content.onClear()
+    author.onClear()
+    info.onClear()
     console.log(content)
   }
 
   return (
     <div>
       <h2>create a new anecdote</h2>
-      <form >
+      <form>
       {/* onSubmit={handleSubmit} */}
         <div>
           content
-          <input {...content } />
+          {/* <input {...content } /> */}
           {/* <input name='content' value={content} onChange={(e)=> setContent(e.target.value)} /> */}
-          {/* <input
+          <input
             type={content.type}
             value={content.value}
             onChange={content.onChange} 
-          />  */}
+          /> 
         </div>
         <div>
           author
-          <input {...author } />
-          {/* <input
+          {/* <input {...author } /> */}
+          <input
             type={author.type}
             value={author.value}
             onChange={author.onChange} 
-          />  */}
+          /> 
         </div>
         <div>
           url for more info
-          <input {...info } />
-          {/* <input
+          {/* <input {...info } /> */}
+          <input
             type={info.type}
             value={info.value}
             onChange={info.onChange} 
-          />  */}
+          /> 
           {/* <input name='info' value={info} onChange={(e)=> setInfo(e.target.value)} /> */}
         </div>
-        <button onClick={handleSubmit}>create</button> <button onClick={handleClear} >clear</button>
+        <button onClick={handleSubmit}>create</button> <button onClick={handleClear}>clear</button>
       </form>
     </div>
   )
