@@ -7,6 +7,22 @@
     {
       "content": "the best featrure ever <3",
       "id": 2
+    },
+    {
+      "content": "this note",
+      "id": 3
+    },
+    {
+      "content": "jag är en gud",
+      "id": 4
+    },
+    {
+      "content": "ewrgrg",
+      "id": 5
+    },
+    {
+      "content": "detta är en note",
+      "id": 6
     }
   ],
   "persons": [
@@ -19,6 +35,31 @@
       "name": "kaltsoon",
       "number": "045-2323456",
       "id": 2
+    },
+    {
+      "name": "this guy",
+      "number": "3209458430958340",
+      "id": 6
+    },
+    {
+      "name": "snigboi",
+      "number": "050 666 69",
+      "id": 7
+    },
+    {
+      "name": "rtvrt",
+      "number": "rtbtr",
+      "id": 8
+    },
+    {
+      "name": "ergre",
+      "number": "erger",
+      "id": 9
+    },
+    {
+      "name": "snig the snog, biteches",
+      "number": "023030234",
+      "id": 10
     }
   ]
 }
